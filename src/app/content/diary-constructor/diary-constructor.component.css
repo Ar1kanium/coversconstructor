@@ -1,0 +1,46 @@
+.diaryConstructorWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-height: 100%;
+}
+.diaryConstructorInfo{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -15px
+}
+
+.diaryConstructorDisplay {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  padding-top:min(110%, 600px);
+  display:flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.diaryConstructorCover {
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+}
+
+.diaryConstructorBadge {
+  position: absolute;
+  top: 15%;
+  max-width: 17%;
+  max-height: 17%;
+}
+
+.diaryConstructorLettering {
+  position: absolute;
+  top: 40%;
+  left: 32%;
+  width: 40%;
+  text-align: center;
+  word-wrap: break-word;
+  background-color: gold;
+}

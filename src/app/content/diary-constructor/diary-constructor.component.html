@@ -1,0 +1,31 @@
+<div class="diaryConstructorWrapper">
+  <div class="diaryConstructorPanel">
+    <p-tabView>
+      <p-tabPanel header="Обложка">
+        <p-dropdown [options]="covers" [(ngModel)]="chosenCover" optionLabel="color" placeholder="Выберите цвет"></p-dropdown>
+      </p-tabPanel>
+      <p-tabPanel header="Значок" [disabled]="!ifCoverChosen()">
+        <p-dropdown [options]="badges" [(ngModel)]="chosenBadge" optionLabel="title" placeholder="Выберите значок"></p-dropdown>
+      </p-tabPanel>
+      <p-tabPanel header="Надпись" [disabled]="!ifCoverChosen()">
+        <input type="text" pInputText [(ngModel)]="lettering" placeholder="Введите надпись"/>
+      </p-tabPanel>
+    </p-tabView>
+    <div class="diaryConstructorInfo">
+      <p>Шрифт: {{fontSize}}</p>
+      <p>Стоимость: {{countPrice() | currency:'RUB' : 'symbol-narrow'}}</p>
+    </div>
+    <p-slider [(ngModel)]="fontSize" [min]="8" [max]="40" [disabled]="!ifLetteringExist()"></p-slider>
+  </div>
+  <div class="diaryConstructorDisplay">
+    <img class="diaryConstructorCover" *ngIf="ifCoverChosen()" [src]="chosenCover?.url" alt="Обложка"/>
+    <img class="diaryConstructorBadge" *ngIf="ifBadgeChosen()" [src]="chosenBadge?.url" alt='Значок'/>
+    <div class="diaryConstructorLetteringWrapper" *ngIf="ifCoverChosen()" alt="Надпись">
+      <div class="diaryConstructorLettering" [style.fontSize]="getFontSize()">{{lettering}}</div>
+    </div>
+  </div>
+  <p-button class="p-button-lg" label="Заказать"></p-button>
+</div>
+
+
+
