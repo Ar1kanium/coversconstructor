@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ICover} from "../../models/ICover";
 import {IBadge} from "../../models/IBadge";
 import {FirebaseService} from "../../services/firebase.service";
-import {Subscription} from "rxjs";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-diary-constructor',
@@ -17,18 +17,13 @@ export class DiaryConstructorComponent implements OnInit{
   fontSize: number = 15
   chosenCover?: ICover
   chosenBadge?: IBadge
+
   constructor(private fb: FirebaseService) {
-    const coversSubscription:Subscription = fb.covers.subscribe((el:ICover[]) => {
-      this.covers = el
-      coversSubscription.unsubscribe()
-    })
-    const badgesSubscription:Subscription = fb.badges.subscribe((el:IBadge[]) => {
-      this.badges = el
-      badgesSubscription.unsubscribe()
-    })
   }
 
   ngOnInit(): void {
+    this.fb.covers$.pipe(take(1)).subscribe((el:ICover[]) => this.covers = el)
+    this.fb.badges$.pipe(take(1)).subscribe((el:IBadge[]) => this.badges = el)
   }
 
   ifCoverChosen = ():boolean => !!this.chosenCover

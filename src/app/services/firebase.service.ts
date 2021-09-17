@@ -8,13 +8,13 @@ import {Observable} from "rxjs";
 export class FirebaseService {
   private coversCollection: AngularFirestoreCollection<ICover>
   private badgesCollection: AngularFirestoreCollection<IBadge>
-  covers: Observable<ICover[]>
-  badges: Observable<IBadge[]>
+  covers$: Observable<ICover[]>
+  badges$: Observable<IBadge[]>
 
   constructor(private afs: AngularFirestore) {
     this.coversCollection = afs.collection<ICover>('covers')
     this.badgesCollection = afs.collection<IBadge>('badges')
-    this.covers = this.coversCollection.valueChanges()
-    this.badges = this.badgesCollection.valueChanges()
+    this.covers$ = this.coversCollection.valueChanges()
+    this.badges$ = this.badgesCollection.valueChanges()
   }
 }

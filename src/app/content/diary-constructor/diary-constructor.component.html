@@ -15,7 +15,7 @@
       <p>Шрифт: {{fontSize}}</p>
       <p>Стоимость: {{countPrice() | currency:'RUB' : 'symbol-narrow'}}</p>
     </div>
-    <p-slider [(ngModel)]="fontSize" [min]="8" [max]="40" [disabled]="!ifLetteringExist()"></p-slider>
+    <p-slider [(ngModel)]="fontSize" [min]="8" [max]="40" ></p-slider>
   </div>
   <div class="diaryConstructorDisplay">
     <img class="diaryConstructorCover" *ngIf="ifCoverChosen()" [src]="chosenCover?.url" alt="Обложка"/>

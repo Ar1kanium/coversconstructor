@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+
 
 
 @Component({
