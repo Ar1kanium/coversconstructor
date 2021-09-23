@@ -8,13 +8,19 @@
     <label for="lastName">Фамилия</label>
   </span>
   <span class="p-float-label">
-    <p-inputMask id="phoneNumber" formControlName="phoneNumber" mask="+7 (999) 999-99-99"></p-inputMask>
-    <label for="phoneNumber">Телефон</label>
-  </span>
-  <span class="p-float-label">
-    <p-dropdown id='communicationMethodDropdown' [ngModelOptions]="{standalone: true}"
+    <p-dropdown id='communicationMethodDropdown' (onChange)="defineValidatorsAndFields()" [ngModelOptions]="{standalone: true}"
                 [options]="communicationMethods" [(ngModel)]="communicationChosenMethod"></p-dropdown>
     <label for="communicationMethodDropdown">Способ связи</label>
+  </span>
+  <div *ngFor="let field of getNickNameControls().controls; let i = index;">
+    <span formArrayName="nickName" class="p-float-label">
+      <input id="nickName" pInputText formControlName="{{i}}">
+      <label for="nickName">Никнейм</label>
+    </span>
+  </div>
+  <span class="p-float-label">
+    <p-inputMask id="phoneNumber" formControlName="phoneNumber" mask="8 (999) 999-99-99"></p-inputMask>
+    <label for="phoneNumber">Телефон</label>
   </span>
   <span class="p-float-label">
     <textarea id="communicationInfo" pInputTextarea [rows]="3" formControlName="communicationInfo"></textarea>
