@@ -1,5 +1,6 @@
+<p-messages [style]="{position: 'fixed', 'z-index': 10000}"></p-messages>
 <div class="diaryConstructorWrapper">
-  <div class="diaryConstructorPanel">
+  <div class="diaryConstructorPanel p-fluid">
     <p-tabView>
       <p-tabPanel header="Обложка">
         <p-dropdown [options]="covers" [(ngModel)]="chosenCover" optionLabel="color" placeholder="Выберите цвет"></p-dropdown>
@@ -24,8 +25,9 @@
       <div class="diaryConstructorLettering" [style.fontSize]="getFontSize()">{{lettering}}</div>
     </div>
   </div>
-  <p-button class="p-button-lg" label="Заказать"></p-button>
+  <p-button class="p-button-lg" label="Заказать" (click)="openContactForm()"></p-button>
 </div>
+
 
 
 

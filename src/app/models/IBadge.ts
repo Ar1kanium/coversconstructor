@@ -1,5 +1,5 @@
 export interface IBadge {
-  title: string;
-  url: string;
-  price: number;
+  title: string
+  url: string
+  price: number
 }

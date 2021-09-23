@@ -1,0 +1,24 @@
+<form [formGroup]="contactForm" (ngSubmit)="submit()" class="p-fluid">
+  <span class="p-float-label">
+    <input id="firstName" pInputText formControlName="firstName" >
+    <label for="firstName">Имя</label>
+  </span>
+  <span class="p-float-label">
+    <input id="lastName" pInputText formControlName="lastName">
+    <label for="lastName">Фамилия</label>
+  </span>
+  <span class="p-float-label">
+    <p-inputMask id="phoneNumber" formControlName="phoneNumber" mask="+7 (999) 999-99-99"></p-inputMask>
+    <label for="phoneNumber">Телефон</label>
+  </span>
+  <span class="p-float-label">
+    <p-dropdown id='communicationMethodDropdown' [ngModelOptions]="{standalone: true}"
+                [options]="communicationMethods" [(ngModel)]="communicationChosenMethod"></p-dropdown>
+    <label for="communicationMethodDropdown">Способ связи</label>
+  </span>
+  <span class="p-float-label">
+    <textarea id="communicationInfo" pInputTextarea [rows]="3" formControlName="communicationInfo"></textarea>
+    <label for="communicationInfo">Комментарий к заказу</label>
+  </span>
+  <p-button [style]="{width: '50%', margin: '0 25%'}" type="submit" label="Заказать"></p-button>
+</form>

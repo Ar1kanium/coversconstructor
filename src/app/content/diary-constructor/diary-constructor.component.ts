@@ -3,6 +3,9 @@ import {ICover} from "../../models/ICover";
 import {IBadge} from "../../models/IBadge";
 import {FirebaseService} from "../../services/firebase.service";
 import {take} from "rxjs/operators";
+import {DialogService} from "primeng/dynamicdialog";
+import {MessageService} from "primeng/api";
+import {ContactFormComponent} from "../contact-form/contact-form.component";
 
 @Component({
   selector: 'app-diary-constructor',
@@ -18,8 +21,9 @@ export class DiaryConstructorComponent implements OnInit{
   chosenCover?: ICover
   chosenBadge?: IBadge
 
-  constructor(private fb: FirebaseService) {
+  constructor(private fb: FirebaseService, public dialogService: DialogService, public messageService: MessageService) {
   }
+
 
   ngOnInit(): void {
     this.fb.covers$.pipe(take(1)).subscribe((el:ICover[]) => this.covers = el)
@@ -40,5 +44,19 @@ export class DiaryConstructorComponent implements OnInit{
   }
   getFontSize = ():string => `${this.fontSize}px`
 
+  openContactForm = ():void => {
+    const ref = this.dialogService.open(ContactFormComponent, {
+      header: 'Контактные данные',
+      width: 'min(90vw, 600px)',
+      baseZIndex: 10000,
+    })
+
+    ref.onClose.subscribe((answer) =>{
+      if (answer) {
+        this.messageService.add({severity:'success', summary:'Заказ принят', detail:`Оператор свяжется с Вами в ближайшее время.`})
+        console.log(answer)
+      }
+    })
+  }
 
 }
