@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {LocalService} from "../../services/local.service";
-import {Subscription} from "rxjs";
 
 
 @Component({
@@ -28,8 +27,14 @@ export class ContactFormComponent implements OnInit{
       communicationInfo: this.local.getFromLocal('communicationInfo'),
     })
     this.contactForm.valueChanges.subscribe((v) => {
-      this.local.storeToLocal(v)
+      const resultedObj = {...v}
+      if (resultedObj['nickName'].length) {
+        resultedObj['nickName'] = resultedObj['nickName'][0]
+      }
+      else delete resultedObj['nickName']
+      this.local.storeToLocal(resultedObj)
     })
+
   }
 
 
@@ -39,7 +44,7 @@ export class ContactFormComponent implements OnInit{
       const ind = this.communicationMethods.indexOf(<string>this.local.getFromLocal('communicationChosenMethod'))
       if (ind !== -1) this.communicationChosenMethod = this.communicationMethods[ind]
     }
-
+    this.defineValidatorsAndFields()
   }
 
   submit = () => {
