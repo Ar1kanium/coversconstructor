@@ -6,6 +6,7 @@ import {take} from "rxjs/operators";
 import {DialogService} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {ContactFormComponent} from "../contact-form/contact-form.component";
+import {LocalService} from "../../services/local.service";
 
 @Component({
   selector: 'app-diary-constructor',
@@ -21,7 +22,9 @@ export class DiaryConstructorComponent implements OnInit{
   chosenCover?: ICover
   chosenBadge?: IBadge
 
-  constructor(private fb: FirebaseService, public dialogService: DialogService, public messageService: MessageService) {
+  constructor(private fb: FirebaseService,
+              public dialogService: DialogService,
+              public messageService: MessageService) {
   }
 
 
@@ -47,7 +50,7 @@ export class DiaryConstructorComponent implements OnInit{
   openContactForm = ():void => {
     const ref = this.dialogService.open(ContactFormComponent, {
       header: 'Контактные данные',
-      width: 'min(90vw, 600px)',
+      width: 'min(90vw, 500px)',
       baseZIndex: 10000,
     })
 

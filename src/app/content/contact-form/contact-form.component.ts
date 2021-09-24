@@ -1,6 +1,8 @@
-import { Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {LocalService} from "../../services/local.service";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -8,20 +10,36 @@ import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.css']
 })
-export class ContactFormComponent {
+export class ContactFormComponent implements OnInit{
 
   contactForm: FormGroup
   communicationMethods: string[] = ['WhatsUp', 'Telegram', 'Viber', 'Instagram', 'VK']
-  communicationChosenMethod: string = this.communicationMethods[0]
+  communicationChosenMethod: string | null = this.communicationMethods[0]
 
-  constructor(private fb: FormBuilder, public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
+  constructor(private fb: FormBuilder,
+              public ref: DynamicDialogRef,
+              public config: DynamicDialogConfig,
+              private local: LocalService) {
     this.contactForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: '',
-      phoneNumber: ['', [Validators.required]],
+      firstName: [this.local.getFromLocal('firstName'), [Validators.required]],
+      lastName: this.local.getFromLocal('lastName'),
+      phoneNumber: [this.local.getFromLocal('phoneNumber'), [Validators.required]],
       nickName: this.fb.array([]),
-      communicationInfo: '',
+      communicationInfo: this.local.getFromLocal('communicationInfo'),
     })
+    this.contactForm.valueChanges.subscribe((v) => {
+      this.local.storeToLocal(v)
+    })
+  }
+
+
+
+  ngOnInit(): void {
+    if (this.local.getFromLocal('communicationChosenMethod')) {
+      const ind = this.communicationMethods.indexOf(<string>this.local.getFromLocal('communicationChosenMethod'))
+      if (ind !== -1) this.communicationChosenMethod = this.communicationMethods[ind]
+    }
+
   }
 
   submit = () => {
@@ -39,7 +57,7 @@ export class ContactFormComponent {
   }
 
   addNickNameField = () => {
-    this.getNickNameControls().push(this.fb.control('', [Validators.required]))
+    this.getNickNameControls().push(this.fb.control(this.local.getFromLocal('nickName'), [Validators.required]))
   }
 
   deleteNickNameField = () => {
@@ -48,6 +66,7 @@ export class ContactFormComponent {
 
 
   defineValidatorsAndFields = () => {
+    this.local.storeToLocal({communicationChosenMethod: this.communicationChosenMethod})
     if (this.communicationChosenMethod === 'Instagram' || this.communicationChosenMethod === 'VK') {
       if (!this.getNickNameControls().length) {
         this.addNickNameField()
@@ -60,4 +79,6 @@ export class ContactFormComponent {
       this.contactForm.controls['phoneNumber'].updateValueAndValidity()
     }
   }
+
+
 }
