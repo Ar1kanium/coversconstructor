@@ -34,12 +34,6 @@ export class DiaryConstructorComponent implements OnInit{
     this.fb.badges$.pipe(take(1)).subscribe((el:IBadge[]) => this.badges = el)
   }
 
-  ifCoverChosen = ():boolean => !!this.chosenCover
-
-
-  ifBadgeChosen = ():boolean => !!this.chosenBadge
-
-  ifLetteringExist = ():boolean => (this.lettering.length > 0)
 
   countPrice = (): void => {
     let countSum = 0
