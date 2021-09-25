@@ -21,6 +21,7 @@ export class DiaryConstructorComponent implements OnInit{
   fontSize: number = 15
   chosenCover?: ICover
   chosenBadge?: IBadge
+  totalPrice:number = 0
 
   constructor(private fb: FirebaseService,
               public dialogService: DialogService,
@@ -40,11 +41,11 @@ export class DiaryConstructorComponent implements OnInit{
 
   ifLetteringExist = ():boolean => (this.lettering.length > 0)
 
-  countPrice = (): number => {
+  countPrice = (): void => {
     let countSum = 0
     if (this.chosenCover) countSum+=this.chosenCover.price
     if (this.chosenBadge) countSum+=this.chosenBadge.price
-    return countSum
+    this.totalPrice = countSum
   }
 
 
