@@ -8,8 +8,8 @@
     <label for="lastName">Фамилия</label>
   </span>
   <span class="p-float-label">
-    <p-dropdown id='communicationMethodDropdown' (onChange)="defineValidatorsAndFields()" [ngModelOptions]="{standalone: true}"
-                [options]="communicationMethods" [(ngModel)]="communicationChosenMethod"></p-dropdown>
+    <p-dropdown id='communicationMethodDropdown' (onChange)="defineValidatorsAndFields()" formControlName="communicationChosenMethod"
+                [options]="communicationMethods"></p-dropdown>
     <label for="communicationMethodDropdown">Способ связи</label>
   </span>
   <div *ngFor="let field of getNickNameControls().controls; let i = index;">

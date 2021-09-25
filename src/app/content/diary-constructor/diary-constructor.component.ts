@@ -6,7 +6,7 @@ import {take} from "rxjs/operators";
 import {DialogService} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {ContactFormComponent} from "../contact-form/contact-form.component";
-import {LocalService} from "../../services/local.service";
+
 
 @Component({
   selector: 'app-diary-constructor',
@@ -35,6 +35,7 @@ export class DiaryConstructorComponent implements OnInit{
 
   ifCoverChosen = ():boolean => !!this.chosenCover
 
+
   ifBadgeChosen = ():boolean => !!this.chosenBadge
 
   ifLetteringExist = ():boolean => (this.lettering.length > 0)
@@ -45,7 +46,7 @@ export class DiaryConstructorComponent implements OnInit{
     if (this.chosenBadge) countSum+=this.chosenBadge.price
     return countSum
   }
-  getFontSize = ():string => `${this.fontSize}px`
+
 
   openContactForm = ():void => {
     const ref = this.dialogService.open(ContactFormComponent, {
@@ -57,7 +58,6 @@ export class DiaryConstructorComponent implements OnInit{
     ref.onClose.subscribe((answer) =>{
       if (answer) {
         this.messageService.add({severity:'success', summary:'Заказ принят', detail:`Оператор свяжется с Вами в ближайшее время.`})
-        console.log(answer)
       }
     })
   }

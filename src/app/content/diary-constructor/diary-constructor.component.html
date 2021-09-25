@@ -22,7 +22,7 @@
     <img class="diaryConstructorCover" *ngIf="ifCoverChosen()" [src]="chosenCover?.url" alt="Обложка"/>
     <img class="diaryConstructorBadge" *ngIf="ifBadgeChosen()" [src]="chosenBadge?.url" alt='Значок'/>
     <div class="diaryConstructorLetteringWrapper" *ngIf="ifCoverChosen()" alt="Надпись">
-      <div class="diaryConstructorLettering" [style.fontSize]="getFontSize()">{{lettering}}</div>
+      <div class="diaryConstructorLettering" [style.fontSize.px]="fontSize">{{lettering}}</div>
     </div>
   </div>
   <p-button class="p-button-lg" label="Заказать" (click)="openContactForm()"></p-button>

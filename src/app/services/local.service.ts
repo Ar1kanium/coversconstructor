@@ -8,13 +8,13 @@ export class LocalService {
 
   constructor() { }
 
-  storeToLocal = (obj:object):void => {
-    for (const [key, val] of Object.entries(obj)) {
+  storeToLocal = (storedData:object):void => {
+    for (const [key, val] of Object.entries(storedData)) {
       localStorage.setItem(key, val)
     }
   }
 
   getFromLocal = (key:string) => {
-    return localStorage.getItem(key) ? localStorage.getItem(key) : ''
+    return localStorage.getItem(key) || ''
 }
 }
